@@ -13,6 +13,9 @@ werkzeug = "*"
 django-environ = "*"
 django-localflavor = "*"
 psycopg2-binary = "*"
+django-registration-redux = "*"
+django-on-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.10"
