@@ -1,11 +1,11 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-class User(AbstractUser):
-    pass
+from django.db import models
 
 
-class Habit (models.Model):
-    iWantTo = models.CharField(max_length=100, null=True)
-    goal    = models.IntegerField(blank =True, null=True)
-    user    = models.ForeignKey( )
+class CustomUser(AbstractUser):
+   
+    # add additional fields in here
+
+    def __str__(self):
+        return self.username
+
