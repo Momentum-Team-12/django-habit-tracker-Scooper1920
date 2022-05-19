@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +8,24 @@
     <title>Shawna's Habit-o-rama</title>
 </head>
 <style>
+
+div {
+        display:flex;
+        justify-content: center;
+        align-items: center;    
+    }    
     button {
         width: max-content;
     }
 </style>
 <body>
+    {% extends "base.html" %}
+    {% load static %}
     {% block content %} 
-    <h3><p>QUITTER!!!!!! JK, No judgements for quitting your goal of trying to {{habit.name}} {{habit.goal}} {{habit.unit}}.</p></h3>
 
+    <div>
+    <h3><p>QUITTER!!!!!! JK! I'd never judge you for quitting your goal of trying to {{habit.name}} {{habit.goal}} {{habit.unit}}.</p></h3>
+    </div>
     <form action="{% url 'delete_habit' pk=habit.pk %}" method="POST">
         {% csrf_token %}
 

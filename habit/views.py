@@ -8,7 +8,7 @@ from .models import CustomUser
 
 @login_required
 def list_habits(request):
-    habits=Habit.objects.all()
+    habits = Habit.objects.filter(user=request.user)
 
     return render(request, "habit/list_habits.html",
                     {"habits":habits})
@@ -29,7 +29,9 @@ def add_habit(request):
     else:
         form = HabitForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            habit = form.save(commit=False)
+            habit.user = request.user
+            habit.save()
             return redirect(to='list_habits')
 
     return render(request, "habit/add_habit.html", {"form":form})
@@ -62,6 +64,6 @@ def edit_habit(request, pk):
     })
 
 
-def log_out(request,user):
-    logout(request,user)
+def log_out(request):
+    logout(request)
     return redirect ('log_out')

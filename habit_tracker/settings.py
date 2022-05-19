@@ -56,6 +56,11 @@ INSTALLED_APPS = [
 
 ]
 
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
+
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -144,7 +149,7 @@ AUTH_USER_MODEL = "habit.CustomUser"
 
 LOGIN_REDIRECT_URL = "/"
 
-
+LOGOUT_REDIRECT_URL = "/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

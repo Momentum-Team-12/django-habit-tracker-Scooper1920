@@ -18,7 +18,7 @@ class Habit(models.Model):
     unit        = models.CharField(max_length=100, null=True, blank=True)
     planstart   = models.DateField(null=True, blank=True)
     journal     = models.TextField(null=True, blank=True)
-
+    
     class Meta:
             constraints  = [
                 models.UniqueConstraint(fields =['name','planstart'], name='unique_habit')

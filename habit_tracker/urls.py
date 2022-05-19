@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('accounts/', include('registration.backends.default.urls'), name ='login'),
-    path("accounts/login",views.log_out, name ='log_out'),
+    path("accounts/logout/",views.log_out, name ='log_out'),
 
     path("",views.list_habits, name ='list_habits' ),
     path('habit/<int:pk>',views.habit_detail, name='habit_detail'),
