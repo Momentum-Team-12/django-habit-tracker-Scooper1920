@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    div {
+        display:flex;
+        flex-direction: column;
+        background-color: rgba(0, 255, 255, 0.211);
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        margin: 25px; 
+    }
+
+    button {
+        width: max-content;
+    }
+</style>
+
+<body>
+    {% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h1>{{request.user}}'s Habit Tracker</h1> 
+
+<button><a href="{% url 'add_habit' %}"
+class="btn btn-primary">
+ Add a new habit for {{request.user}}
+</a></button>
+<p></p>
+
+{% for habit in habits %}
+    
+        
+            
+            <div>
+                <h3>{{request.user}}'s goal is to {{habit.name }} {{habit.goal}} {{habit.unit}} every day, starting on {{habit.planstart}}</h3>
+                <button><a href="{% url 'habit_detail' habit.pk %}">
+                    {{habit.name.upper}} </a></button><button>
+                        <a href="{% url 'delete_habit' habit.pk %}">Delete</a></button>
+                             
+                 
+            </div>
+        
+    
+    {% endfor %}
+
+{% endblock %}
+    
+
+ 
+</body>
+</html>
