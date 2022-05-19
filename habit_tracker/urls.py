@@ -21,11 +21,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('accounts/', include('registration.backends.default.urls'), name ='login'),
-    
+    path("accounts/login",views.log_out, name ='log_out'),
 
     path("",views.list_habits, name ='list_habits' ),
     path('habit/<int:pk>',views.habit_detail, name='habit_detail'),
     path('habit/new',views.add_habit, name='add_habit'),
     path('habit/<int:pk>/delete',views.delete_habit, name='delete_habit'),
-
+    path('habit/<int:pk>/edit',views.edit_habit, name='edit_habit')
+    
+    #right now i am able to log out by clicking the logout button but it doesn't go to the login
 ]
