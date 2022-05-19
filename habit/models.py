@@ -31,10 +31,10 @@ class Habit(models.Model):
     
     
 class DateRecord(models.Model):    
-    habit       =   models.ForeignKey('Habit', related_name='date_records', on_delete=models.CASCADE)
+    habit       =   models.ForeignKey('Habit', related_name='date_records', on_delete=models.CASCADE, null= True, blank=True)
     actual      =   models.IntegerField(null=True, blank=True)
     date        =   models.DateField(null=True, blank=True)
-    created_at  =   models.DateTimeField(auto_now_add=True)
+    created_at  =   models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
             constraints  = [

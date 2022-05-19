@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Habit
-from .forms import HabitForm
+from .models import Habit, DateRecord
+from .forms import HabitForm, DateRecordForm
 from django.contrib.auth.decorators import  login_required
 from django.contrib.auth import logout
 from .models import CustomUser
@@ -17,9 +17,22 @@ def list_habits(request):
 @login_required
 def habit_detail(request,pk):
     habit = Habit.objects.get(pk=pk)
+    daterecords = DateRecord.objects.filter(habit=habit)
+    if request.method == 'GET':
+        form = DateRecordForm()
+    else:
+        form = DateRecordForm(data=request.POST)
+        if form.is_valid():
+            daterecord = form.save(commit=False)
+            daterecord.habit = habit
+            daterecord.save()
+            
     context = {
-        'habit':habit
+        'habit':habit,
+        'daterecords':daterecords,
+        'form' :form
     }
+    
     return render(request, 'habit/habit_detail.html',context)
 
 @login_required

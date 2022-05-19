@@ -1,5 +1,6 @@
 from django import forms
 from .models import Habit
+from .models import DateRecord
 
 
 
@@ -14,3 +15,13 @@ class HabitForm(forms.ModelForm):
             'journal',
             
         )
+
+
+class DateRecordForm(forms.ModelForm):
+        class Meta:
+            model   = DateRecord
+            fields  = (
+
+                'actual',
+                'date',
+            )
