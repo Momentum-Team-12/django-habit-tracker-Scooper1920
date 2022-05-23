@@ -20,7 +20,7 @@ from habit import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('accounts/', include('registration.backends.default.urls'), name ='login'),
+    path('accounts/', include('registration.backends.simple.urls'), name ='login'),
     path("accounts/logout/",views.log_out, name ='log_out'),
 
     path("",views.list_habits, name ='list_habits' ),
