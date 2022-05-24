@@ -30,6 +30,11 @@
           
     {% endfor %}
     <!-- form is placed after the for-loop bc only one is needed -->
+    {% if error_msg %}
+    <div class="form-errors">
+      <h1>{{ error_msg}}</h1>
+    </div>
+ {% endif %}
     <div>
       <form method="POST">
         {% csrf_token %}
@@ -38,11 +43,7 @@
           <button type="submit">Submit</button>
         </div>
       </form>
-      {% if error_msg %}
-      <div class="form-errors">
-        {{ error_msg}}
-      </div>
-   {% endif %}
+
     
     {% endblock %}
 </body>
