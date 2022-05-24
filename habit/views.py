@@ -3,6 +3,7 @@ from .models import Habit, DateRecord
 from .forms import HabitForm, DateRecordForm
 from django.contrib.auth.decorators import  login_required
 from django.contrib.auth import logout
+from django.db import IntegrityError
 from .models import CustomUser
 # Create your views here.
 
@@ -15,25 +16,24 @@ def list_habits(request):
 
 
 @login_required
-def habit_detail(request,pk):
+def habit_detail(request, pk):
     habit = Habit.objects.get(pk=pk)
     daterecords = DateRecord.objects.filter(habit=habit)
-    if request.method == 'GET':
+    context = {"habit": habit, "daterecords": daterecords}
+    if request.method == "GET":
         form = DateRecordForm()
     else:
         form = DateRecordForm(data=request.POST)
         if form.is_valid():
             daterecord = form.save(commit=False)
             daterecord.habit = habit
-            daterecord.save()
-            
-    context = {
-        'habit':habit,
-        'daterecords':daterecords,
-        'form' :form
-    }
-    
-    return render(request, 'habit/habit_detail.html',context)
+            try:
+                daterecord.save()
+            except IntegrityError as error:
+                context["error_msg"] = "A record already exists for this date."
+
+    context["form"] = form
+    return render(request, "habit/habit_detail.html", context)
 
 @login_required
 def add_habit(request):

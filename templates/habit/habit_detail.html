@@ -38,6 +38,11 @@
           <button type="submit">Submit</button>
         </div>
       </form>
+      {% if error_msg %}
+      <div class="form-errors">
+        {{ error_msg}}
+      </div>
+   {% endif %}
     
     {% endblock %}
 </body>
