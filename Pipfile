@@ -12,14 +12,12 @@ django-debug-toolbar = "*"
 psycopg2-binary = "*"
 django-on-heroku = "*"
 gunicorn = "*"
-django-ordered-model = "*"
-django-toggle-m2m = "*"
 djangorestframework = "*"
 
 [dev-packages]
 black = "*"
 flake8 = "*"
-pdbpp = "*"
+
 
 [requires]
 python_version = "3.10"
