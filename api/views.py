@@ -5,7 +5,7 @@ from rest_framework.reverse import reverse
 
 from habit.models import Habit, CustomUser, DateRecord
 from .serializers import HabitSerializer, CustomUserSerializer, DateRecordSerializer
-from .permission import IsOwnerOrReadOnly 
+# from .permission import IsOwnerOrReadOnly 
 
 
 
@@ -21,25 +21,26 @@ def api_root(request, format=None):
 class HabitListView(generics.ListCreateAPIView):
     queryset            = Habit.objects.all()
     serializer_class    = HabitSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self,serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
 
 class HabitCreateView(generics.CreateAPIView):
     queryset            = Habit.objects.all()
     serializer_class    = HabitSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self,serializer):
-
         serializer.save(user=self.request.user) 
 
 
 class HabitDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset          = Habit.objects.all()
     serializer_class  = HabitSerializer 
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
+
+
 
 class CustomUserListView(generics.ListAPIView):
     queryset         = CustomUser.objects.all()
@@ -48,16 +49,17 @@ class CustomUserListView(generics.ListAPIView):
 class CustomUserDetailView(generics.RetrieveAPIView):
     queryset            = CustomUser.objects.all()
     serializer_class    = CustomUserSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly)
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
 class DateRecordView(generics.ListCreateAPIView):
     queryset          = DateRecord.objects.all()
     serializer_class  = DateRecordSerializer
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
 class DateRecordCreateView(generics.CreateAPIView):
     queryset            = DateRecord.objects.all()
     serializer_class    = DateRecordSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly)
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self,serializer):
         serializer.save(user=self.request.user)
@@ -68,6 +70,5 @@ class DateRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_destroy(self, instance):
-        
         if instance.habit.user == self.request.user:
             instance.delete()
