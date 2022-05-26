@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import UniqueConstraint
@@ -5,8 +6,6 @@ from django.db.models import UniqueConstraint
 
 class CustomUser(AbstractUser):
    
-    # add additional fields in here
-
     def __str__(self):
         return self.username
 
@@ -35,11 +34,12 @@ class DateRecord(models.Model):
     actual      =   models.IntegerField(null=True, blank=True)
     date        =   models.DateField(null=True, blank=True)
     created_at  =   models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
+    
     class Meta:
             constraints  = [
                 models.UniqueConstraint(fields =['habit','date'], name='unique_date')
             ]
+
     
     def __str__(self):
         return self.date
