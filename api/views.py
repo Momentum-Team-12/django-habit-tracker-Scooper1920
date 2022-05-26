@@ -21,11 +21,19 @@ def api_root(request, format=None):
 class HabitListView(generics.ListCreateAPIView):
     queryset            = Habit.objects.all()
     serializer_class    = HabitSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
 
     def perform_create(self,serializer):
         serializer.save(owner=self.request.user)
-        
+
+class HabitCreateView(generics.CreateAPIView):
+    queryset            = Habit.objects.all()
+    serializer_class    = HabitSerializer
+    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+
+    def perform_create(self,serializer):
+
+        serializer.save(user=self.request.user) 
 
 
 class HabitDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -40,13 +48,26 @@ class CustomUserListView(generics.ListAPIView):
 class CustomUserDetailView(generics.RetrieveAPIView):
     queryset            = CustomUser.objects.all()
     serializer_class    = CustomUserSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes  = (permissions.IsAuthenticatedOrReadOnly)
 
 class DateRecordView(generics.ListCreateAPIView):
     queryset          = DateRecord.objects.all()
     serializer_class  = DateRecordSerializer
 
+class DateRecordCreateView(generics.CreateAPIView):
+    queryset            = DateRecord.objects.all()
+    serializer_class    = DateRecordSerializer
+    permission_classes  = (permissions.IsAuthenticatedOrReadOnly)
+
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user)
+
 class DateRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset            = DateRecord.objects.all()
     serializer_class    = DateRecordSerializer
-    permission_classes  = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+    permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_destroy(self, instance):
+        
+        if instance.habit.user == self.request.user:
+            instance.delete()
