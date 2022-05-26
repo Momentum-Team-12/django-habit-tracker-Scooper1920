@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "==4.0.0"
 django-environ = "*"
 django-extensions = "*"
 django-registration-redux = "*"
@@ -17,7 +17,6 @@ djangorestframework = "*"
 [dev-packages]
 black = "*"
 flake8 = "*"
-
 
 [requires]
 python_version = "3.10"
