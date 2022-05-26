@@ -5,7 +5,7 @@ from api import views
 
 urlpatterns = [
 
-    path('api/', views.api_root),
+    path('', api_views.api_root),
     path('habits/', api_views.HabitListView.as_view(), name='habit-list-api'),
     path('habits/create/', api_views.HabitCreateView.as_view(), name = 'create-view'),
     path('habits/<int:pk>/', api_views.HabitDetailView.as_view(), name='habit-detail-api'),
