@@ -1,3 +1,4 @@
+from psycopg2 import Date
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response 
@@ -37,9 +38,10 @@ class HabitCreateView(generics.CreateAPIView):
 
 
 class HabitDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset          = Habit.objects.all()
+    queryset          = Habit.objects.filter()
     serializer_class  = HabitSerializer 
     permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
+    
 
     def perform_destroy(self, instance):
         if instance.habit.user == self.request.user:

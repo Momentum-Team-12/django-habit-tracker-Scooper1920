@@ -3,10 +3,11 @@ from habit.models import Habit, CustomUser, DateRecord
 
 class HabitSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    
+    date_records= serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     class Meta:
         model = Habit
-        fields = ('name', 'goal', 'user', 'unit', 'planstart', 'journal', 'owner')
+        fields = ['name', 'goal', 'user', 'unit', 'planstart', 'journal', 'owner','date_records']
 
 
 class CustomUserSerializer(serializers.ModelSerializer):

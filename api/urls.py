@@ -9,8 +9,10 @@ urlpatterns = [
     path('habits/', api_views.HabitListView.as_view(), name='habit-list-api'),
     path('habits/create/', api_views.HabitCreateView.as_view(), name = 'create-view'),
     path('habits/<int:pk>/', api_views.HabitDetailView.as_view(), name='habit-detail-api'),
+
     path('users/', api_views.CustomUserListView.as_view(), name = 'user-list'),
     path('users/<int:pk>/', api_views.CustomUserDetailView.as_view(), name ='user-detail'),
+    
     path('daterecords/', api_views.DateRecordView.as_view(), name = 'date-record-list'),
     path('daterecords/create/', api_views.HabitCreateView.as_view(), name = 'daterecord-create-view'),
     path('daterecords/<int:pk>/',api_views.DateRecordDetailView.as_view(), name = 'date-record-detail'),
