@@ -44,7 +44,8 @@ class HabitDetailView(generics.RetrieveUpdateDestroyAPIView):
     
 
     def perform_destroy(self, instance):
-        if instance.habit.user == self.request.user:
+       
+        if instance.user == self.request.user:
             instance.delete()
 
     def perform_create(self,serializer):
