@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shawna's Habit-o-rama</title>
+</head>
+<body>
+    {% block content %}
+    <h1>Edit {{habit.name.upper}} for {{request.user}}</h1>
+
+    <div>
+      <form action="{% url 'edit_habit' pk=habit.pk %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+          <button type="submit">Update Habit!</button>
+        </form>
+        <button><a href="{% url 'list_habits' %}">Nevermind!</button></a>
+        </div>
+      
+
+    {% endblock %}
+</body>
+</html>
